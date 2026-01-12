@@ -14,13 +14,13 @@ export default function Home() {
           Each project will be listed with the block ID it was deployed to.
         </p>
         <div className="space-y-2">
-          <p>→ Connect your wallet using the button in the header and sign the visitor&apos;s book (coming soon).</p>
+          <p>→ Connect your wallet using the button in the header and sign the guestbook (coming soon).</p>
           <p>→ Visit the <Link href="/about" className="underline">About page</Link> for more information about me and my projects.</p>
         </div>
       </div>
       
       <div className="mt-8 p-6 border border-border">
-        <h2 className="text-xl font-bold mb-4">Current Projects</h2>
+        <h2 className="text-xl font-bold mb-4">Known Projects</h2>
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border">
@@ -35,13 +35,25 @@ export default function Home() {
               <td className="py-1 text-gray-600">Ethereum Mainnet</td>
               <td className="py-1"><Link href="https://etherscan.io/block/23017016" className="text-gray-600 underline" target="_blank" rel="noopener noreferrer">23017016</Link></td>
             </tr>
+            <tr>
+              <td rowSpan={3} className="py-1 pt-4 align-top">• <Link href="https://guestbook.knownblock.com" className="underline" target="_blank" rel="noopener noreferrer">Guestbook</Link></td>
+              <td className="py-0.25 pt-4 text-gray-600">Ethereum Mainnet</td>
+              <td className="py-0.25 pt-4"><Link href="https://etherscan.io/block/23970198" className="text-gray-600 underline" target="_blank" rel="noopener noreferrer">23970198</Link></td>
+            </tr>
+            <tr>
+              <td className="py-0.25 text-gray-600">Base</td>
+              <td className="py-0.25"><Link href="https://basescan.org/block/39216561" className="text-gray-600 underline" target="_blank" rel="noopener noreferrer">39216561</Link></td>
+            </tr>
+            <tr>
+              <td className="py-0.25 text-gray-600">Arbitrum</td>
+              <td className="py-0.25"><Link href="https://arbiscan.io/block/408571892" className="text-gray-600 underline" target="_blank" rel="noopener noreferrer">408571892</Link></td>
+            </tr>
           </tbody>
         </table>
       </div>
       <div className="mt-8 p-6 border border-border">
         <h2 className="text-xl font-bold mb-4">Future Work</h2>
         <div className="space-y-1 text-sm">
-          <p>• Visitor&apos;s Book Contract</p>
           <p>• ████████████</p>
           <p>• ██████████</p>
           <p>• ████████████</p>
