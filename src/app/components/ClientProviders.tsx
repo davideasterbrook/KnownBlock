@@ -31,7 +31,7 @@ export default function ClientProviders({
           </div>
         </header>
         <main className="container mx-auto px-4 py-8">
-          {children}
+          <div className="text-sm text-gray-600">Loading...</div>
         </main>
       </>
     );

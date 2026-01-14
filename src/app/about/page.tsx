@@ -46,7 +46,7 @@ export default function About() {
         
         <p className='mb-4'>Block ID: <Link href="https://etherscan.io/block/23017016" className="text-gray-600 underline" target="_blank" rel="noopener noreferrer">23017016</Link></p>
         <p className='mb-4'>
-          Guestbook App Page: <Link href="https://guestbook.knownblock.com" className="text-gray-600 underline" target="_blank" rel="noopener noreferrer">guestbook.knownblock.com</Link>
+          Guestbook App Page: <Link href="/guestbook" className="text-gray-600 underline">knownblock.com/guestbook</Link>
         </p>
         
         <div className="space-y-1 text-sm">

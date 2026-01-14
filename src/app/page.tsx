@@ -14,8 +14,8 @@ export default function Home() {
           Each project will be listed with the block ID it was deployed to.
         </p>
         <div className="space-y-2">
-          <p>→ Connect your wallet using the button in the header and sign the guestbook (coming soon).</p>
           <p>→ Visit the <Link href="/about" className="underline">About page</Link> for more information about me and my projects.</p>
+          <p>→ Make sure to connect your wallet and sign the <Link href="/guestbook" className="underline">Guestbook</Link>.</p>
         </div>
       </div>
       
@@ -36,7 +36,7 @@ export default function Home() {
               <td className="py-1"><Link href="https://etherscan.io/block/23017016" className="text-gray-600 underline" target="_blank" rel="noopener noreferrer">23017016</Link></td>
             </tr>
             <tr>
-              <td rowSpan={3} className="py-1 pt-4 align-top">• <Link href="https://guestbook.knownblock.com" className="underline" target="_blank" rel="noopener noreferrer">Guestbook</Link></td>
+              <td rowSpan={3} className="py-1 pt-4 align-top">• <Link href="/guestbook" className="underline">Guestbook</Link></td>
               <td className="py-0.25 pt-4 text-gray-600">Ethereum Mainnet</td>
               <td className="py-0.25 pt-4"><Link href="https://etherscan.io/block/23970198" className="text-gray-600 underline" target="_blank" rel="noopener noreferrer">23970198</Link></td>
             </tr>
