@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useAccount, useChainId, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+import { useAccount, useChainId, useWriteContract, useWaitForTransactionReceipt, useReadContract } from 'wagmi';
 import { GUESTBOOK_ABI, getGuestbookAddress } from '../lib/contracts';
 import { mainnet, base, arbitrum } from 'wagmi/chains';
 
@@ -9,7 +9,7 @@ export function SignGuestbook() {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
 
-  const { isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
   const chainId = useChainId();
   const { writeContract, data: hash, error: writeError, isPending, reset } = useWriteContract();
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
@@ -18,6 +18,25 @@ export function SignGuestbook() {
   const supportedChainIds = [mainnet.id, base.id, arbitrum.id] as const;
   const isSupported = (supportedChainIds as readonly number[]).includes(chainId);
   const contractAddress = getGuestbookAddress(chainId);
+
+  // LayerZero options for 50000 gas
+  const lzOptions = '0x0003010011010000000000000000000000000000c350' as `0x${string}`;
+
+  // Get the LayerZero fee quote (but don't display it)
+  const { data: feeQuote } = useReadContract({
+    address: contractAddress,
+    abi: GUESTBOOK_ABI,
+    functionName: 'quoteBroadcast',
+    args: [
+      address || '0x0000000000000000000000000000000000000000',
+      name.trim() || 'placeholder',
+      message.trim() || 'placeholder',
+      lzOptions,
+    ],
+    query: {
+      enabled: isConnected && isSupported && !!contractAddress && !!name.trim() && !!message.trim(),
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,14 +61,13 @@ export function SignGuestbook() {
       return; // Should not happen if chain check works
     }
 
-    // Call signGuestbook function
-    // For now, passing empty bytes (0x) as options
-    // This can be configured later if LayerZero cross-chain options are needed
+    // Call signGuestbook function with LayerZero options and exact fee
     writeContract({
       address: contractAddress,
       abi: GUESTBOOK_ABI,
       functionName: 'signGuestbook',
-      args: [trimmedName, trimmedMessage, '0x' as `0x${string}`],
+      args: [trimmedName, trimmedMessage, lzOptions],
+      value: feeQuote as bigint, // Send the exact LayerZero fee
     });
   };
 
@@ -124,7 +142,7 @@ export function SignGuestbook() {
           {/* Submit Button */}
           <button
             type="submit"
-            disabled={isPending || isConfirming || !name.trim() || !message.trim()}
+            disabled={isPending || isConfirming || !name.trim() || !message.trim() || !feeQuote}
             className="underline hover:no-underline disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isPending ? 'Confirm in wallet...' : isConfirming ? 'Signing...' : 'Sign Guestbook'}
