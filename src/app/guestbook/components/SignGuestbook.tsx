@@ -19,6 +19,11 @@ export function SignGuestbook() {
   const isSupported = (supportedChainIds as readonly number[]).includes(chainId);
   const contractAddress = getGuestbookAddress(chainId);
 
+  // Get chain name for button text (only shown when isSupported is true)
+  const chainName = chainId === mainnet.id ? 'Ethereum'
+    : chainId === base.id ? 'Base'
+    : 'Arbitrum';
+
   // LayerZero options for 50000 gas
   const lzOptions = '0x0003010011010000000000000000000000000000c350' as `0x${string}`;
 
@@ -145,7 +150,7 @@ export function SignGuestbook() {
             disabled={isPending || isConfirming || !name.trim() || !message.trim() || !feeQuote}
             className="underline hover:no-underline disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isPending ? 'Confirm in wallet...' : isConfirming ? 'Signing...' : 'Sign Guestbook'}
+            {isPending ? 'Confirm in wallet...' : isConfirming ? 'Signing...' : `Sign Guestbook on ${chainName}`}
           </button>
 
           {/* Transaction States */}
